@@ -8,6 +8,7 @@ import { Button } from '../../../shared/components/Button';
 import { Card } from '../../../shared/components/Card';
 import { XpProgressBar } from '../../gamification/components/XpProgressBar';
 import { LevelUpModal } from '../../gamification/components/LevelUpModal';
+import { DailyMissionWidget } from '../../scheduling/components/DailyMissionWidget';
 
 interface Assignment {
   id: string;
@@ -125,6 +126,16 @@ export function DashboardPage() {
                   </Button>
                 </Link>
               )}
+              <Link to="/missions">
+                <Button size="sm" variant="secondary">
+                  📋 Missions
+                </Button>
+              </Link>
+              <Link to="/habits">
+                <Button size="sm" variant="secondary">
+                  🎯 Habits
+                </Button>
+              </Link>
               <Link to="/canvas/setup">
                 <Button size="sm" variant="secondary">
                   Canvas Setup
@@ -198,6 +209,11 @@ export function DashboardPage() {
             </Card>
           </div>
         )}
+
+        {/* Daily Mission Widget */}
+        <div className="mb-8">
+          <DailyMissionWidget />
+        </div>
 
         {/* Assignment List */}
         <Card>

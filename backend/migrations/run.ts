@@ -33,6 +33,7 @@ async function runMigrations() {
     const migrationFiles = [
       '001_initial_schema.sql',
       '002_gamification_schema.sql',
+      '003_habits_and_scheduling.sql',
       // Add more migrations here as needed
     ];
 

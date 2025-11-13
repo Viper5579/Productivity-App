@@ -9,6 +9,8 @@ import { RegisterPage } from '../features/auth/pages/RegisterPage';
 import { DashboardPage } from '../features/assignments/pages/DashboardPage';
 import { CanvasSetupPage } from '../features/canvas/pages/CanvasSetupPage';
 import { GamificationPage } from '../features/gamification/pages/GamificationPage';
+import { HabitsPage } from '../features/habits/pages/HabitsPage';
+import { DailyMissionsPage } from '../features/scheduling/pages/DailyMissionsPage';
 
 // Protected route wrapper
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -75,6 +77,22 @@ export function Router() {
         element={
           <ProtectedRoute>
             <GamificationPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/habits"
+        element={
+          <ProtectedRoute>
+            <HabitsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/missions"
+        element={
+          <ProtectedRoute>
+            <DailyMissionsPage />
           </ProtectedRoute>
         }
       />

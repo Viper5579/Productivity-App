@@ -242,6 +242,144 @@ export interface DailyStatsTable {
 }
 
 // ============================================================================
+// HABITS MODULE TABLES (Phase 3)
+// ============================================================================
+
+export interface HabitTemplatesTable {
+  id: string;
+  name: string;
+  description: string | null;
+  category: string;
+  icon: string | null;
+  suggested_frequency: string;
+  suggested_target: number | null;
+  suggested_target_unit: string | null;
+  base_xp_reward: number;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Timestamp;
+}
+
+export interface HabitDefinitionsTable {
+  id: string;
+  user_id: string;
+  name: string;
+  description: string | null;
+  category: string;
+  icon: string | null;
+  frequency_type: string;
+  frequency_target: number | null;
+  frequency_days: any; // JSONB
+  has_target: boolean;
+  target_value: number | null;
+  target_unit: string | null;
+  xp_reward: number;
+  bonus_xp_on_streak: number;
+  is_active: boolean;
+  archived_at: Timestamp | null;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface HabitCompletionsTable {
+  id: string;
+  habit_id: string;
+  user_id: string;
+  completed_date: Date;
+  actual_value: number | null;
+  notes: string | null;
+  quality_rating: number | null;
+  xp_earned: number;
+  streak_count: number;
+  bonus_xp_earned: number;
+  completed_at: Timestamp;
+}
+
+export interface HabitStreaksTable {
+  id: string;
+  habit_id: string;
+  user_id: string;
+  current_streak: number;
+  longest_streak: number;
+  last_completion_date: Date | null;
+  total_completions: number;
+  updated_at: Timestamp;
+}
+
+// ============================================================================
+// SCHEDULING MODULE TABLES (Phase 3)
+// ============================================================================
+
+export interface PrioritySettingsTable {
+  id: string;
+  user_id: string;
+  due_date_weight: number;
+  difficulty_weight: number;
+  importance_weight: number;
+  estimated_time_weight: number;
+  prefer_morning_tasks: boolean;
+  prefer_quick_wins: boolean;
+  prefer_high_xp: boolean;
+  work_start_time: string | null; // TIME type
+  work_end_time: string | null; // TIME type
+  break_duration_minutes: number;
+  focus_block_duration_minutes: number;
+  updated_at: Timestamp;
+}
+
+export interface DailyMissionsTable {
+  id: string;
+  user_id: string;
+  mission_date: Date;
+  is_generated: boolean;
+  is_completed: boolean;
+  completion_percentage: number;
+  total_items: number;
+  completed_items: number;
+  total_xp_available: number;
+  xp_earned: number;
+  generated_at: Timestamp | null;
+  completed_at: Timestamp | null;
+  created_at: Timestamp;
+}
+
+export interface MissionItemsTable {
+  id: string;
+  mission_id: string;
+  user_id: string;
+  item_type: string;
+  assignment_id: string | null;
+  habit_id: string | null;
+  priority_score: number;
+  sort_order: number;
+  title: string;
+  description: string | null;
+  estimated_duration_minutes: number | null;
+  xp_reward: number;
+  is_completed: boolean;
+  completed_at: Timestamp | null;
+  time_block_id: string | null;
+  created_at: Timestamp;
+}
+
+export interface TimeBlocksTable {
+  id: string;
+  user_id: string;
+  block_date: Date;
+  start_time: Timestamp;
+  end_time: Timestamp;
+  block_type: string;
+  mission_item_id: string | null;
+  title: string;
+  description: string | null;
+  color: string | null;
+  is_completed: boolean;
+  completed_at: Timestamp | null;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+// ============================================================================
 // DATABASE INTERFACE
 // ============================================================================
 
@@ -265,4 +403,16 @@ export interface Database {
   achievement_definitions: AchievementDefinitionsTable;
   user_achievements: UserAchievementsTable;
   daily_stats: DailyStatsTable;
+
+  // Habits tables (Phase 3)
+  habit_templates: HabitTemplatesTable;
+  habit_definitions: HabitDefinitionsTable;
+  habit_completions: HabitCompletionsTable;
+  habit_streaks: HabitStreaksTable;
+
+  // Scheduling tables (Phase 3)
+  priority_settings: PrioritySettingsTable;
+  daily_missions: DailyMissionsTable;
+  mission_items: MissionItemsTable;
+  time_blocks: TimeBlocksTable;
 }
