@@ -8,6 +8,7 @@ import { RegisterPage } from '../features/auth/pages/RegisterPage';
 // Main pages
 import { DashboardPage } from '../features/assignments/pages/DashboardPage';
 import { CanvasSetupPage } from '../features/canvas/pages/CanvasSetupPage';
+import { GamificationPage } from '../features/gamification/pages/GamificationPage';
 
 // Protected route wrapper
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -66,6 +67,14 @@ export function Router() {
         element={
           <ProtectedRoute>
             <CanvasSetupPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/gamification"
+        element={
+          <ProtectedRoute>
+            <GamificationPage />
           </ProtectedRoute>
         }
       />

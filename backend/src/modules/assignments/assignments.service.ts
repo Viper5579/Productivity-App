@@ -224,6 +224,28 @@ export class AssignmentsService {
 
     logger.info(`Assignment ${assignmentId} marked as completed by user ${userId}`);
 
+    // Trigger gamification (if enabled)
+    try {
+      const { config } = await import('../../core/config');
+      if (config.features.gamification) {
+        const { gamificationService } = await import('../gamification/gamification.service');
+
+        // Process gamification asynchronously
+        gamificationService.processAssignmentCompletion({
+          assignmentId,
+          userId,
+          pointsPossible: assignment.pointsPossible || 0,
+          daysBeforeDue,
+          completionQuality: data.qualityRating || null,
+        }).catch((error) => {
+          logger.error(`Failed to process gamification for assignment ${assignmentId}:`, error);
+        });
+      }
+    } catch (error) {
+      // Gamification module not available - that's okay
+      logger.debug('Gamification not available:', error);
+    }
+
     return this.mapCompletionFromDb(completion);
   }
 

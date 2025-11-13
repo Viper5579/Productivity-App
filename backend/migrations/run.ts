@@ -32,6 +32,7 @@ async function runMigrations() {
     // Migration files to run (in order)
     const migrationFiles = [
       '001_initial_schema.sql',
+      '002_gamification_schema.sql',
       // Add more migrations here as needed
     ];
 

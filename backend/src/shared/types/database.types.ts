@@ -141,6 +141,107 @@ export interface SyncHistoryTable {
 }
 
 // ============================================================================
+// GAMIFICATION MODULE TABLES (Phase 2)
+// ============================================================================
+
+export interface UserXpTable {
+  id: string;
+  user_id: string;
+  current_xp: number;
+  total_xp_earned: number;
+  current_level: number;
+  xp_to_next_level: number;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface XpTransactionsTable {
+  id: string;
+  user_id: string;
+  assignment_id: string | null;
+  xp_amount: number;
+  source: string;
+  multiplier: number | null;
+  reason: string | null;
+  metadata: any; // JSONB
+  created_at: Timestamp;
+}
+
+export interface LevelHistoryTable {
+  id: string;
+  user_id: string;
+  old_level: number;
+  new_level: number;
+  xp_at_levelup: number;
+  leveled_up_at: Timestamp;
+}
+
+export interface UserStreaksTable {
+  id: string;
+  user_id: string;
+  current_daily_streak: number;
+  longest_daily_streak: number;
+  last_activity_date: Date | null;
+  current_weekly_streak: number;
+  longest_weekly_streak: number;
+  last_weekly_activity: Date | null;
+  current_monthly_streak: number;
+  longest_monthly_streak: number;
+  last_monthly_activity: Date | null;
+  streak_shields_available: number;
+  last_shield_reset_date: Date | null;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface StreakEventsTable {
+  id: string;
+  user_id: string;
+  event_type: string;
+  streak_type: string;
+  streak_count: number;
+  metadata: any; // JSONB
+  created_at: Timestamp;
+}
+
+export interface AchievementDefinitionsTable {
+  id: string;
+  code: string;
+  name: string;
+  description: string;
+  category: string;
+  icon: string | null;
+  tier: string | null;
+  requirement_type: string;
+  requirement_value: number;
+  xp_reward: number;
+  is_active: boolean;
+  display_order: number;
+  created_at: Timestamp;
+}
+
+export interface UserAchievementsTable {
+  id: string;
+  user_id: string;
+  achievement_id: string;
+  unlocked_at: Timestamp;
+  progress: number | null;
+  metadata: any; // JSONB
+}
+
+export interface DailyStatsTable {
+  id: string;
+  user_id: string;
+  stat_date: Date;
+  assignments_completed: number | null;
+  xp_earned: number | null;
+  average_early_days: number | null;
+  total_points_earned: number | null;
+  study_time_minutes: number | null;
+  created_at: Timestamp;
+}
+
+// ============================================================================
 // DATABASE INTERFACE
 // ============================================================================
 
@@ -154,4 +255,14 @@ export interface Database {
   assignment_completions: AssignmentCompletionsTable;
   assignment_filter_patterns: AssignmentFilterPatternsTable;
   sync_history: SyncHistoryTable;
+
+  // Gamification tables (Phase 2)
+  user_xp: UserXpTable;
+  xp_transactions: XpTransactionsTable;
+  level_history: LevelHistoryTable;
+  user_streaks: UserStreaksTable;
+  streak_events: StreakEventsTable;
+  achievement_definitions: AchievementDefinitionsTable;
+  user_achievements: UserAchievementsTable;
+  daily_stats: DailyStatsTable;
 }

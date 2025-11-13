@@ -6,6 +6,8 @@ import { apiClient } from '../../../core/api-client';
 import { useAuth } from '../../../core/hooks/useAuth';
 import { Button } from '../../../shared/components/Button';
 import { Card } from '../../../shared/components/Card';
+import { XpProgressBar } from '../../gamification/components/XpProgressBar';
+import { LevelUpModal } from '../../gamification/components/LevelUpModal';
 
 interface Assignment {
   id: string;
@@ -31,6 +33,12 @@ export function DashboardPage() {
   const { user, logout } = useAuth();
   const queryClient = useQueryClient();
   const [showCompleted, setShowCompleted] = useState(false);
+  const [levelUpData, setLevelUpData] = useState<{
+    show: boolean;
+    oldLevel: number;
+    newLevel: number;
+    xpGained: number;
+  } | null>(null);
 
   // Fetch assignments
   const { data: assignments, isLoading: isLoadingAssignments } = useQuery({
@@ -50,6 +58,16 @@ export function DashboardPage() {
       const response = await apiClient.get('/assignments/stats');
       return response.data.data.stats as Stats;
     },
+  });
+
+  // Fetch gamification stats
+  const { data: gamificationStats } = useQuery({
+    queryKey: ['gamification-stats'],
+    queryFn: async () => {
+      const response = await apiClient.get('/gamification/stats');
+      return response.data.data.stats;
+    },
+    retry: false, // Don't retry if gamification is disabled
   });
 
   // Complete assignment mutation
@@ -100,6 +118,13 @@ export function DashboardPage() {
             </h1>
             <div className="flex items-center gap-4">
               <span className="text-gray-700">Welcome, {user?.name}</span>
+              {gamificationStats && (
+                <Link to="/gamification">
+                  <Button size="sm">
+                    🎮 Level {gamificationStats.xp.currentLevel}
+                  </Button>
+                </Link>
+              )}
               <Link to="/canvas/setup">
                 <Button size="sm" variant="secondary">
                   Canvas Setup
@@ -114,6 +139,32 @@ export function DashboardPage() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        {/* Gamification XP Bar */}
+        {gamificationStats && (
+          <div className="mb-8">
+            <Card>
+              <XpProgressBar
+                currentXp={gamificationStats.xp.currentXp}
+                xpToNextLevel={gamificationStats.xp.xpToNextLevel}
+                level={gamificationStats.xp.currentLevel}
+                totalXp={gamificationStats.xp.totalXpEarned}
+              />
+              <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
+                <div className="flex items-center gap-1">
+                  <span className="text-2xl">🔥</span>
+                  <span className="font-semibold">{gamificationStats.streak.currentDailyStreak} day streak</span>
+                </div>
+                <div>
+                  <span className="font-semibold">{gamificationStats.achievements.total}</span> achievements
+                </div>
+                <Link to="/gamification" className="text-primary-600 hover:text-primary-700 font-medium">
+                  View All Stats →
+                </Link>
+              </div>
+            </Card>
+          </div>
+        )}
+
         {/* Stats Cards */}
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -266,6 +317,17 @@ export function DashboardPage() {
           )}
         </Card>
       </div>
+
+      {/* Level Up Modal */}
+      {levelUpData && (
+        <LevelUpModal
+          show={levelUpData.show}
+          oldLevel={levelUpData.oldLevel}
+          newLevel={levelUpData.newLevel}
+          xpGained={levelUpData.xpGained}
+          onClose={() => setLevelUpData(null)}
+        />
+      )}
     </div>
   );
 }
