@@ -136,6 +136,11 @@ export function DashboardPage() {
                   🎯 Habits
                 </Button>
               </Link>
+              <Link to="/analytics">
+                <Button size="sm" variant="secondary">
+                  📊 Analytics
+                </Button>
+              </Link>
               <Link to="/canvas/setup">
                 <Button size="sm" variant="secondary">
                   Canvas Setup

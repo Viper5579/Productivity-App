@@ -380,6 +380,133 @@ export interface TimeBlocksTable {
 }
 
 // ============================================================================
+// ANALYTICS MODULE TABLES (Phase 4)
+// ============================================================================
+
+export interface WeeklyAnalyticsTable {
+  id: string;
+  user_id: string;
+  week_start_date: Date;
+  week_end_date: Date;
+  assignments_completed: number;
+  assignments_total: number;
+  completion_rate: number;
+  average_days_early: number | null;
+  overdue_count: number;
+  xp_earned: number;
+  average_daily_xp: number;
+  highest_single_day_xp: number;
+  habits_completed: number;
+  habit_completion_rate: number;
+  active_habits_count: number;
+  longest_streak_this_week: number;
+  streak_at_week_start: number;
+  streak_at_week_end: number;
+  total_study_time_minutes: number;
+  average_daily_study_minutes: number;
+  average_quality_rating: number | null;
+  high_quality_count: number;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface MonthlyAnalyticsTable {
+  id: string;
+  user_id: string;
+  month_start_date: Date;
+  month_end_date: Date;
+  year: number;
+  month: number;
+  assignments_completed: number;
+  assignments_total: number;
+  completion_rate: number;
+  average_days_early: number | null;
+  overdue_count: number;
+  xp_earned: number;
+  average_daily_xp: number;
+  highest_single_day_xp: number;
+  xp_from_assignments: number;
+  xp_from_habits: number;
+  xp_from_bonuses: number;
+  habits_completed: number;
+  habit_completion_rate: number;
+  total_habit_streaks: number;
+  levels_gained: number;
+  level_at_month_start: number;
+  level_at_month_end: number;
+  achievements_unlocked: number;
+  total_study_time_minutes: number;
+  average_daily_study_minutes: number;
+  best_day_of_week: number | null;
+  best_day_xp: number;
+  most_productive_date: Date | null;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface CategoryAnalyticsTable {
+  id: string;
+  user_id: string;
+  category: string;
+  category_type: string;
+  period_type: string;
+  period_start: Date | null;
+  period_end: Date | null;
+  total_items: number;
+  completed_items: number;
+  completion_rate: number;
+  xp_earned: number;
+  average_xp_per_item: number;
+  average_quality_rating: number | null;
+  average_days_early: number | null;
+  total_streak_days: number;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface UserInsightsTable {
+  id: string;
+  user_id: string;
+  insight_type: string;
+  insight_category: string;
+  title: string;
+  description: string;
+  metric_value: number | null;
+  metric_unit: string | null;
+  related_data: any; // JSONB
+  is_active: boolean;
+  generated_at: Timestamp;
+  expires_at: Timestamp | null;
+  created_at: Timestamp;
+}
+
+export interface ProductivityTimeAnalysisTable {
+  id: string;
+  user_id: string;
+  day_of_week: number;
+  hour_of_day: number;
+  tasks_completed: number;
+  xp_earned: number;
+  average_quality: number | null;
+  total_sessions: number;
+  productivity_score: number;
+  updated_at: Timestamp;
+}
+
+export interface PersonalBestsTable {
+  id: string;
+  user_id: string;
+  metric_name: string;
+  metric_category: string;
+  current_value: number;
+  previous_value: number | null;
+  achieved_at: Timestamp;
+  context_data: any; // JSONB
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+// ============================================================================
 // DATABASE INTERFACE
 // ============================================================================
 
@@ -415,4 +542,12 @@ export interface Database {
   daily_missions: DailyMissionsTable;
   mission_items: MissionItemsTable;
   time_blocks: TimeBlocksTable;
+
+  // Analytics tables (Phase 4)
+  weekly_analytics: WeeklyAnalyticsTable;
+  monthly_analytics: MonthlyAnalyticsTable;
+  category_analytics: CategoryAnalyticsTable;
+  user_insights: UserInsightsTable;
+  productivity_time_analysis: ProductivityTimeAnalysisTable;
+  personal_bests: PersonalBestsTable;
 }

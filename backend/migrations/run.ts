@@ -34,6 +34,7 @@ async function runMigrations() {
       '001_initial_schema.sql',
       '002_gamification_schema.sql',
       '003_habits_and_scheduling.sql',
+      '004_analytics.sql',
       // Add more migrations here as needed
     ];
 
