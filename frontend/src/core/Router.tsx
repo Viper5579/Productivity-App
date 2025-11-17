@@ -12,6 +12,7 @@ import { GamificationPage } from '../features/gamification/pages/GamificationPag
 import { HabitsPage } from '../features/habits/pages/HabitsPage';
 import { DailyMissionsPage } from '../features/scheduling/pages/DailyMissionsPage';
 import { AnalyticsPage } from '../features/analytics/pages/AnalyticsPage';
+import { AISettingsPage } from '../features/ai/pages/AISettingsPage';
 
 // Protected route wrapper
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -102,6 +103,14 @@ export function Router() {
         element={
           <ProtectedRoute>
             <AnalyticsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai-settings"
+        element={
+          <ProtectedRoute>
+            <AISettingsPage />
           </ProtectedRoute>
         }
       />

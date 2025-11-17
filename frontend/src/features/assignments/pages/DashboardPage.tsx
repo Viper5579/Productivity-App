@@ -141,6 +141,11 @@ export function DashboardPage() {
                   📊 Analytics
                 </Button>
               </Link>
+              <Link to="/ai-settings">
+                <Button size="sm" variant="secondary">
+                  🤖 AI
+                </Button>
+              </Link>
               <Link to="/canvas/setup">
                 <Button size="sm" variant="secondary">
                   Canvas Setup

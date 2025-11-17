@@ -181,6 +181,16 @@ export const setupModules = async (app: Express): Promise<PluginManager> => {
     }
   }
 
+  // AI Enhancement module (Phase 5)
+  if (config.features.aiEnhancement) {
+    try {
+      const { AIModule } = await import('../modules/ai');
+      pluginManager.register(AIModule);
+    } catch (error) {
+      logger.warn('AI Enhancement module not available:', error);
+    }
+  }
+
   // Initialize all registered modules
   await pluginManager.initializeAll();
 

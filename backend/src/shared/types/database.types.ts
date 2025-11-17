@@ -507,6 +507,60 @@ export interface PersonalBestsTable {
 }
 
 // ============================================================================
+// AI ENHANCEMENT MODULE TABLES (Phase 5)
+// ============================================================================
+
+export interface AIUserSettingsTable {
+  id: string;
+  user_id: string;
+  is_enabled: boolean;
+  provider: string;
+  api_key_encrypted: string | null;
+  enable_time_estimation: boolean;
+  enable_smart_priority: boolean;
+  enable_insight_generation: boolean;
+  enable_natural_language: boolean;
+  total_requests_today: number;
+  last_request_at: Timestamp | null;
+  daily_limit: number;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+export interface AIGeneratedInsightsTable {
+  id: string;
+  user_id: string;
+  insight_type: string;
+  title: string;
+  content: string;
+  category: string;
+  priority: string;
+  source: string;
+  is_read: boolean;
+  is_dismissed: boolean;
+  is_actionable: boolean;
+  generated_at: Timestamp;
+  expires_at: Timestamp | null;
+  metadata: any; // JSONB
+  created_at: Timestamp;
+}
+
+export interface AITimeEstimationsTable {
+  id: string;
+  user_id: string;
+  reference_type: string;
+  reference_id: string | null;
+  task_title: string;
+  estimated_minutes: number;
+  confidence: string;
+  reasoning: string | null;
+  source: string;
+  was_accurate: boolean | null;
+  actual_minutes: number | null;
+  created_at: Timestamp;
+}
+
+// ============================================================================
 // DATABASE INTERFACE
 // ============================================================================
 
@@ -550,4 +604,9 @@ export interface Database {
   user_insights: UserInsightsTable;
   productivity_time_analysis: ProductivityTimeAnalysisTable;
   personal_bests: PersonalBestsTable;
+
+  // AI Enhancement tables (Phase 5)
+  ai_user_settings: AIUserSettingsTable;
+  ai_generated_insights: AIGeneratedInsightsTable;
+  ai_time_estimations: AITimeEstimationsTable;
 }
