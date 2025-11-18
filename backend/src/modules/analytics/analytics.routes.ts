@@ -4,12 +4,12 @@
 
 import { Router } from 'express';
 import { analyticsController } from './analytics.controller';
-import { authenticate } from '../../shared/middleware/auth.middleware';
+import { authenticateToken } from '../../shared/middleware/auth.middleware';
 
 export const analyticsRoutes = Router();
 
 // All routes require authentication
-analyticsRoutes.use(authenticate);
+analyticsRoutes.use(authenticateToken);
 
 // Dashboard and overview
 analyticsRoutes.get('/dashboard', (req, res) => analyticsController.getDashboard(req, res));

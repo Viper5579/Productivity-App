@@ -3,7 +3,8 @@
  * HTTP handlers for analytics endpoints
  */
 
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../../shared/middleware/auth.middleware';
 import { analyticsService } from './analytics.service';
 import { logger } from '../../core/logger';
 
@@ -12,7 +13,7 @@ export class AnalyticsController {
    * GET /api/analytics/dashboard
    * Get complete analytics dashboard data
    */
-  async getDashboard(req: Request, res: Response) {
+  async getDashboard(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const data = await analyticsService.getDashboardData(userId);
@@ -27,7 +28,7 @@ export class AnalyticsController {
    * GET /api/analytics/overview
    * Get overview metrics
    */
-  async getOverview(req: Request, res: Response) {
+  async getOverview(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const overview = await analyticsService.getOverview(userId);
@@ -42,7 +43,7 @@ export class AnalyticsController {
    * GET /api/analytics/xp-trend
    * Get XP trend data
    */
-  async getXpTrend(req: Request, res: Response) {
+  async getXpTrend(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const trend = await analyticsService.getXpTrend(userId);
@@ -57,7 +58,7 @@ export class AnalyticsController {
    * GET /api/analytics/completion-trend
    * Get completion trend data
    */
-  async getCompletionTrend(req: Request, res: Response) {
+  async getCompletionTrend(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const trend = await analyticsService.getCompletionTrend(userId);
@@ -72,7 +73,7 @@ export class AnalyticsController {
    * GET /api/analytics/category-performance
    * Get category performance data
    */
-  async getCategoryPerformance(req: Request, res: Response) {
+  async getCategoryPerformance(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const performance = await analyticsService.getCategoryPerformance(userId);
@@ -87,7 +88,7 @@ export class AnalyticsController {
    * GET /api/analytics/insights
    * Get productivity insights
    */
-  async getInsights(req: Request, res: Response) {
+  async getInsights(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const insights = await analyticsService.getInsights(userId);
@@ -102,7 +103,7 @@ export class AnalyticsController {
    * GET /api/analytics/weekly-summary
    * Get weekly summary
    */
-  async getWeeklySummary(req: Request, res: Response) {
+  async getWeeklySummary(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const summary = await analyticsService.getWeeklySummary(userId);
@@ -117,7 +118,7 @@ export class AnalyticsController {
    * GET /api/analytics/monthly-summary
    * Get monthly summary
    */
-  async getMonthlySummary(req: Request, res: Response) {
+  async getMonthlySummary(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const { year, month } = req.query;

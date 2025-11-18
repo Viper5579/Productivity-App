@@ -3,7 +3,8 @@
  * HTTP handlers for AI features (fully optional)
  */
 
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../../shared/middleware/auth.middleware';
 import { aiService } from './ai.service';
 import { logger } from '../../core/logger';
 import { z } from 'zod';
@@ -45,7 +46,7 @@ export class AIController {
    * GET /api/ai/status
    * Get AI status and feature availability
    */
-  async getStatus(req: Request, res: Response) {
+  async getStatus(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const status = await aiService.getStatus(userId);
@@ -60,7 +61,7 @@ export class AIController {
    * GET /api/ai/settings
    * Get user's AI settings
    */
-  async getSettings(req: Request, res: Response) {
+  async getSettings(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const settings = await aiService.getUserSettings(userId);
@@ -91,7 +92,7 @@ export class AIController {
    * PUT /api/ai/settings
    * Update user's AI settings
    */
-  async updateSettings(req: Request, res: Response) {
+  async updateSettings(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const data = updateSettingsSchema.parse(req.body);
@@ -122,7 +123,7 @@ export class AIController {
    * POST /api/ai/estimate-time
    * Get AI-powered time estimation for a task
    */
-  async estimateTime(req: Request, res: Response) {
+  async estimateTime(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const data = timeEstimationSchema.parse(req.body);
@@ -149,7 +150,7 @@ export class AIController {
    * POST /api/ai/suggest-priority
    * Get AI-suggested priority score
    */
-  async suggestPriority(req: Request, res: Response) {
+  async suggestPriority(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const data = prioritySuggestionSchema.parse(req.body);
@@ -176,7 +177,7 @@ export class AIController {
    * POST /api/ai/generate-insights
    * Generate AI-powered productivity insights
    */
-  async generateInsights(req: Request, res: Response) {
+  async generateInsights(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const metrics = req.body.metrics || {};
@@ -196,7 +197,7 @@ export class AIController {
    * POST /api/ai/parse-natural-language
    * Parse natural language input for task creation
    */
-  async parseNaturalLanguage(req: Request, res: Response) {
+  async parseNaturalLanguage(req: AuthenticatedRequest, res: Response) {
     try {
       const userId = req.user!.id;
       const data = naturalLanguageSchema.parse(req.body);

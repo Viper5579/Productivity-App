@@ -5,7 +5,7 @@
  */
 
 import { db } from '../../core/database';
-import { encryptionService } from '../../shared/services/encryption.service';
+import * as encryptionService from '../../shared/services/encryption.service';
 import {
   AIUserSettings,
   AIStatusResponse,

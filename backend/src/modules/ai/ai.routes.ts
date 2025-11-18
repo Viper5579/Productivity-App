@@ -5,12 +5,12 @@
 
 import { Router } from 'express';
 import { aiController } from './ai.controller';
-import { authenticate } from '../../shared/middleware/auth.middleware';
+import { authenticateToken } from '../../shared/middleware/auth.middleware';
 
 export const aiRoutes = Router();
 
 // All routes require authentication
-aiRoutes.use(authenticate);
+aiRoutes.use(authenticateToken);
 
 // Status and settings
 aiRoutes.get('/status', (req, res) => aiController.getStatus(req, res));
