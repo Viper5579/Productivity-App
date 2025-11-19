@@ -2,6 +2,31 @@
 
 A modular personal productivity application that automatically pulls academic assignments from Canvas LMS, gamifies task completion, tracks daily habits, and provides performance metrics.
 
+## 📱 Available Versions
+
+This project has **TWO versions** - choose the one that fits your needs:
+
+### 🌐 Web Version (Main Branch)
+- **Technology**: React + Vite + Tailwind CSS
+- **Platform**: Desktop & Mobile browsers
+- **Status**: ✅ All 5 phases complete
+- **Quick Start**: See below
+- **Best for**: Desktop users, web access
+
+### 📱 Mobile App Version (Branch: `mobile-native-app`)
+- **Technology**: React Native + Expo
+- **Platform**: iOS & Android native apps
+- **Status**: 🚧 Foundation complete, features in progress
+- **Quick Start**: See [GETTING_STARTED_MOBILE.md](./GETTING_STARTED_MOBILE.md)
+- **Best for**: Mobile-first users, native app experience
+- **Runs on**: Mac (iOS Simulator), physical devices
+
+**Both versions** use the same backend API!
+
+> **To switch to mobile version:** `git checkout mobile-native-app`
+
+---
+
 ## 🎯 Overview
 
 This application helps students stay on top of their academic work by:
